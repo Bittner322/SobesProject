@@ -18,8 +18,12 @@ import io.github.koalaplot.core.style.KoalaPlotTheme
 import io.github.koalaplot.core.util.ExperimentalKoalaPlotApi
 import io.github.koalaplot.core.xygraph.FloatLinearAxisModel
 import kotlinx.coroutines.launch
+import org.example.project.db.entitiy.Homes
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.ktorm.database.Database
+import org.ktorm.dsl.from
+import org.ktorm.dsl.select
 import sobesproject.composeapp.generated.resources.Res
 import sobesproject.composeapp.generated.resources.settings
 
@@ -34,9 +38,15 @@ enum class Tabs(val text: String) {
 @Composable
 @Preview
 fun App() {
+    val database = Database.connect("jdbc:postgresql://localhost:5432/sobes", user = "postgres", password = "428895")
+
     val scope = rememberCoroutineScope()
     val pagerState = rememberPagerState(pageCount = { Tabs.entries.size })
     val selectedTabIndex = remember { derivedStateOf { pagerState.currentPage } }
+
+    for (row in database.from(Homes).select()) {
+        println(row[Homes.address])
+    }
 
     MaterialTheme {
         Scaffold(
