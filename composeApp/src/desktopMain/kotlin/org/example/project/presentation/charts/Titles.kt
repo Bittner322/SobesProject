@@ -1,4 +1,4 @@
-package org.example.project.ui.charts
+package org.example.project.presentation.charts
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text

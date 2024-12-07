@@ -1,4 +1,4 @@
-package org.example.project.ui.screens
+package org.example.project.presentation.screens
 
 enum class Tabs(val text: String) {
     ByDistricts("По районам"),

@@ -1005,10 +1005,6 @@ INSERT INTO homes (id, address, district, rating) VALUES (998, '83108 Schiller C
 INSERT INTO homes (id, address, district, rating) VALUES (999, '12512 Village Lane', 'Centralniy', 3);
 INSERT INTO homes (id, address, district, rating) VALUES (1000, '9545 Eastlawn Circle', 'Centralniy', NULL);
 
-selectAll:
-SELECT *
-FROM homes;
-
 selectRatingStatsByDistricts:
 SELECT AVG(rating), district
 FROM homes
@@ -1017,4 +1013,5 @@ GROUP BY district;
 
 selectRatingStatsByOverall:
 SELECT AVG(rating)
-FROM homes;
+FROM homes
+WHERE rating NOT NULL;

@@ -1,4 +1,4 @@
-package org.example.project.ui.charts
+package org.example.project.presentation.charts
 
 import io.github.koalaplot.core.bar.DefaultVerticalBarPlotEntry
 import io.github.koalaplot.core.bar.DefaultVerticalBarPosition
