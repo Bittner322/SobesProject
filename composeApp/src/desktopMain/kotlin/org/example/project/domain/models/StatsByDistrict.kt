@@ -4,12 +4,12 @@ import org.example.sqldelight.homes.data.SelectRatingStatsByDistricts
 
 data class StatsByDistrict(
     val district: String,
-    val rating: Double?
+    val rating: Double
 )
 
 fun SelectRatingStatsByDistricts.toStatsByDistrict(): StatsByDistrict {
     return StatsByDistrict(
         district = district,
-        rating = AVG
+        rating = AVG ?: 0.0
     )
 }

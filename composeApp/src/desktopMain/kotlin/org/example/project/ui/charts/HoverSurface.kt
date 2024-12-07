@@ -9,6 +9,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
+internal val padding = 8.dp
+
 @Composable
 fun HoverSurface(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
     Surface(

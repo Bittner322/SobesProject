@@ -1,4 +1,4 @@
-package org.example.project.ui.screens
+package org.example.project.ui.screens.main
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.HorizontalPager
@@ -6,22 +6,24 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.onSizeChanged
-import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.unit.dp
+import io.github.koalaplot.core.xygraph.TickPosition
 import kotlinx.coroutines.launch
-import org.example.project.data.repository.DatabaseRepository
-import org.example.project.ui.charts.PieChartMain
+import org.example.project.ui.charts.BarPlot
+import org.example.project.ui.charts.TickPositionState
+import org.example.project.ui.screens.Tabs
 import org.jetbrains.compose.resources.painterResource
 import sobesproject.composeapp.generated.resources.Res
 import sobesproject.composeapp.generated.resources.settings
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun MainScreen() {
+fun MainScreen(
+    viewModel: MainScreenViewModel
+) {
+    val statsByDistrict by viewModel.statsByDistrictFlow.collectAsState()
+
     val scope = rememberCoroutineScope()
     val pagerState = rememberPagerState(pageCount = { Tabs.entries.size })
     val selectedTabIndex = remember { derivedStateOf { pagerState.currentPage } }
@@ -47,34 +49,19 @@ fun MainScreen() {
                 )
             }
         ) {
-            var containerWidth = LocalWindowInfo.current.containerSize.width
-            var tabRowsWidth by remember { mutableStateOf(0) }
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .onSizeChanged {
-                        containerWidth = it.width
-                    }
                     .padding(top = it.calculateTopPadding())
             ) {
-                ScrollableTabRow(
+                TabRow(
                     backgroundColor = Color.Transparent,
                     selectedTabIndex = selectedTabIndex.value,
-                    modifier = Modifier.fillMaxWidth(),
-                    edgePadding = ((containerWidth.dp - tabRowsWidth.dp) / 2).coerceAtLeast(0.dp)
+                    modifier = Modifier.fillMaxWidth()
                 ) {
-                    val tabWidths = remember { mutableStateListOf<Int>() }
                     Tabs.entries.forEachIndexed { index, currentTab ->
                         Tab(
-                            modifier = Modifier
-                                .onSizeChanged { size ->
-                                    if (index < tabWidths.size) {
-                                        tabWidths[index] = size.width
-                                    } else {
-                                        tabWidths.add(size.width)
-                                    }
-                                    tabRowsWidth = tabWidths.sum()
-                                },
+                            modifier = Modifier,
                             selected = selectedTabIndex.value == index,
                             onClick = {
                                 scope.launch {
@@ -97,7 +84,14 @@ fun MainScreen() {
                     ) {
                         when (pagerState.currentPage) {
                             0 -> {
-                                PieChartMain()
+                                BarPlot(
+                                    title = "Статистика по районам",
+                                    tickPositionState = TickPositionState(
+                                        verticalAxis = TickPosition.Inside,
+                                        horizontalAxis = TickPosition.Inside
+                                    ),
+                                    stats = statsByDistrict
+                                )
                             }
                             1 -> {
 

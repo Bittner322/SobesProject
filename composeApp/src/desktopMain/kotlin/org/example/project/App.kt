@@ -3,19 +3,23 @@ package org.example.project
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import org.example.project.di.dataModule
-import org.example.project.ui.screens.MainScreen
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.example.project.di.mainScreenModule
+import org.example.project.ui.screens.main.MainScreen
+import org.example.project.ui.screens.main.MainScreenViewModel
+import org.koin.compose.koinInject
 import org.koin.core.context.startKoin
 
 @Composable
-@Preview
 fun App() {
-
     startKoin {
-        modules(dataModule)
+        modules(
+            dataModule,
+            mainScreenModule
+        )
     }
 
+    val viewModel: MainScreenViewModel = koinInject()
     MaterialTheme {
-        MainScreen()
+       MainScreen(viewModel)
     }
 }
