@@ -5,8 +5,10 @@ junit = "4.13.2"
 kotlin = "2.0.21"
 kotlinx-coroutines = "1.9.0"
 koalaplot = "0.7.0"
-ktorm = "4.1.1"
-ksp = "2.1.0-1.0.29"
+koin = "4.0.1-Beta1"
+sqldelight = "2.0.2"
+viewmodel = "2.8.0"
+koinComposeViewModel = "1.2.0-Beta4"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -16,13 +18,13 @@ androidx-lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", nam
 androidx-lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
 kotlinx-coroutines-swing = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
 koalaplot = { module = "io.github.koalaplot:koalaplot-core", version.ref = "koalaplot" }
-ktorm-core = { module = "org.ktorm:ktorm-core", version.ref = "ktorm" }
-ktorm-jackson = { module = "org.ktorm:ktorm-jackson", version.ref = "ktorm" }
-ktorm-annotations = { module = "org.ktorm:ktorm-ksp-annotations", version.ref = "ktorm" }
-ktorm-compiler = { module = "org.ktorm:ktorm-ksp-compiler", version.ref = "ktorm" }
+koin = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin" }
+koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koinComposeViewModel" }
+sqldelight = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqldelight" }
+viewmodel = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "viewmodel" }
 
 [plugins]
 composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
 composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

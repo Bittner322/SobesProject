@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
-    alias(libs.plugins.ksp)
+    id("app.cash.sqldelight") version "2.0.2"
 }
 
 kotlin {
@@ -24,18 +24,17 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.kotlinx.coroutines.swing)
             implementation(libs.koalaplot)
-            implementation(libs.ktorm.core)
-            implementation(libs.ktorm.jackson)
-            implementation(libs.ktorm.annotations)
-            implementation(libs.ktorm.compiler)
-            implementation("org.postgresql:postgresql:42.2.18")
+            implementation(libs.koin)
+            implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
+            implementation(libs.viewmodel)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
+            implementation(libs.sqldelight)
         }
     }
 }
-
 
 compose.desktop {
     application {
@@ -47,4 +46,12 @@ compose.desktop {
             packageVersion = "1.0.0"
         }
     }
+}
+
+sqldelight {
+  databases {
+    create("Database") {
+      packageName.set("org.example")
+    }
+  }
 }
