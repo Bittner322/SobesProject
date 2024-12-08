@@ -1015,3 +1015,16 @@ selectRatingStatsByOverall:
 SELECT AVG(rating)
 FROM homes
 WHERE rating NOT NULL;
+
+selectCountOfData:
+SELECT COUNT(id)
+FROM homes;
+
+selectCountOfHomesWithoutRating:
+SELECT COUNT(id)
+FROM homes
+WHERE rating ISNULL;
+
+selectDistricts:
+SELECT DISTINCT district
+FROM homes;

@@ -2,10 +2,7 @@ package org.example.project.data.repository
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.example.project.domain.models.OverallStat
-import org.example.project.domain.models.StatsByDistrict
-import org.example.project.domain.models.toDomain
-import org.example.project.domain.models.toStatsByDistrict
+import org.example.project.domain.models.*
 import org.example.sqldelight.homes.data.HomesQueries
 
 class DatabaseRepository(
@@ -21,6 +18,24 @@ class DatabaseRepository(
         return withContext(Dispatchers.IO) {
             homesQueries.selectRatingStatsByDistricts().executeAsList()
                 .map { it.toStatsByDistrict() }
+        }
+    }
+
+    suspend fun getCountOfData(): Long {
+        return withContext(Dispatchers.IO) {
+            homesQueries.selectCountOfData().executeAsOne()
+        }
+    }
+
+    suspend fun getHomesWithoutRating(): Long {
+        return withContext(Dispatchers.IO) {
+            homesQueries.selectCountOfHomesWithoutRating().executeAsOne()
+        }
+    }
+
+    suspend fun getCountOfDistricts(): List<String> {
+        return withContext(Dispatchers.IO) {
+            homesQueries.selectDistricts().executeAsList()
         }
     }
 }
